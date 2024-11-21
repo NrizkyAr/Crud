@@ -61,7 +61,7 @@
                         @csrf
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" name="task" id="todo-input"
-                                placeholder="Tambah task baru" required>
+                                placeholder="Tambah task baru" required value="{{ old('task') }}">
                             <button class="btn btn-primary" type="submit">
                                 Simpan
                             </button>
@@ -91,16 +91,16 @@
                                 <input type="text" class="form-control edit-input" style="display: none;"
                                     value="{{ $item->task }}">
                                 <div class="btn-group">
-                                    <form action="{{ route('todo.delete',['id' =>$item->id]) }}" method="post" onsubmit="return confirm('yakin ingi menghapus ?')">
+                                    <form action="{{ route('todo.delete',['id' =>$item->id]) }}" method="post" onsubmit="return confirm('yakin ingin menghapus ?')">
                                         @csrf
                                         @method('delete')
                                     <button class="btn btn-danger btn-sm delete-btn">✕</button>
                                     <button class="btn btn-primary btn-sm edit-btn" data-bs-toggle="collapse"
-                                        data-bs-target="#collapse-1" aria-expanded="false">✎</button>
+                                        data-bs-target="#collapse-{{ $loop->index }}" aria-expanded="false">✎</button>
                                 </div>
                             </li>
                             <!-- 05. Update Data -->
-                            <li class="list-group-item collapse" id="collapse-1">
+                            <li class="list-group-item collapse" id="collapse-{{ $loop->index }}">
                                 <form action="{{ route('todo.update',['id'=>$item->id]) }}" method="POST">
                                     @csrf
                                     @method('PUT')
